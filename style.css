@@ -12,24 +12,24 @@ body {
 }
 .mainSection {
   padding: 0 30px;
-  padding-top: 30px;
-
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+
 }
-h1 {
+.mainSection h1 {
   color: rgba(175, 47, 47, 0.15);
   font-size: 100px;
+  margin: 20px auto;
 }
 .todoInput {
   width: 100%;
   max-width: 600px;
 }
 .todoInput input[type="text"] {
+  position: relative;
   padding: 20px 16px 20px 60px;
-  border: none;
+  border: 2px solid transparent;
   width: 100%;
   font-size: 1.6em;
   height: auto;
@@ -37,6 +37,50 @@ h1 {
   /* box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2); */
 
   -webkit-font-smoothing: antialiased;
+}
+.btn__allCompl{
+  position: relative;
+    height: 0;
+}
+.allCompl {
+  position: relative;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  border: none;
+  height: 1px;
+  width: 1px;
+}
+
+.allCompl+label {
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  font-size: 0;
+  height: 65px;
+  justify-content: center;
+  left: 1%;
+  position: absolute;
+  top: -65px;
+  width: 45px;
+}
+
+.allCompl+label::before{
+    color: #949494;
+    content: "❯";
+    display: inline-block;
+    font-size: 22px;
+    padding: 10px 27px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.allCompl-label:{
+  color: #111;
+}
+
+.todoInput input[type="text"]:focus{
+  border: 2px solid rgba(175, 47, 47, 0.15);
 }
 input::placeholder {
   color: #e8e6e6;
@@ -47,6 +91,12 @@ input:hover,
 input:active {
   outline: none;
 }
+.hiddenBlock{
+  width: 100%;
+  max-width: 600px;
+}
+
+
 
 .list__item {
   width: 100%;
@@ -59,41 +109,59 @@ input:active {
   justify-content: space-between;
   align-items: center;
 }
-
+.list__item:hover .delX{
+  visibility: visible;
+}
+.delX:hover{
+  color: #c18585;
+}
 .leftItem {
   display: flex;
   gap: 30px;
+  position: absolute;
 }
-
+.leftItem label{
+  display: block;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2;
+    transition: color .4s;
+    word-break: break-all;
+}
+.delX{
+visibility: hidden;
+  color: #949494;
+  font-size: 30px;
+  height: 30px;
+  margin: auto 0;
+  position: relative;
+  left: 95%;
+  top: 50%;
+  transition: color .2s ease-out;
+  width: 30px;
+}
+.delX::after{
+  content: "×";
+  display: block;
+  height: 100%;
+  line-height: 1.1;
+}
 .mainList {
   border-top: 1px solid #e6e6e6;
-  display: none;
 }
 button {
   border: none;
   background-color: transparent;
 }
-
-ul {
-  list-style: none;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  text-align: center;
-}
-li button {
-  color: #777;
-}
 .footerList {
   width: 100%;
   background-color: white;
   display: flex;
-  padding: 15px 20px 15px 16px;
-  gap: 25%;
+  padding: 10px 20px 15px 16px;
+  gap: 20%;
   align-items: center;
   position: relative;
   color: #777;
-  /* display: none; */
 }
 
 .footerList:before {
@@ -110,16 +178,70 @@ li button {
   text-align: center;
   border-top: 1px solid #e6e6e6;
 }
-
+ul {
+  z-index: 2;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+li button {
+  z-index: 2;
+  cursor: pointer;
+  color: #777;
+  border: 1px solid transparent;
+  padding: 4px;
+}
+li button:hover{
+  border: 1px solid #c18585;
+  border-radius: 4px;
+}
+.clearCompl{
+ z-index: 2;
+ color: #777;
+ text-decoration: none;
+ cursor: pointer;
+}
+.clearCompl:hover{
+text-decoration: underline;
+}
 .active {
   display: flex;
 }
+@media (max-width: 700px){
+  .footerList{
+    align-items: center;
+    justify-content: center;
+    gap: 12%;
+  }
+  .footerList label, .footerList ul li, .footerList button{
+    font-size: 12px;
+  } 
+  .footerList ul{
+    gap: 5px;
+  }
+}
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .todoInput input[type="text"] {
     font-size: 1em;
   }
   h1 {
     font-size: 50px;
   }
+  .footerList{
+    gap: 5%;
+  }
+  .footerList label, .footerList ul li, .footerList button, .footerList label span{
+    font-size: 12px;
+  } 
+  .leftItem label{
+    font-size: 12px;
+  }
 }
+ @media(max-width: 400px){
+  .footerList label, .footerList ul li, .footerList button, .footerList label span{
+    font-size: 9px;
+  } 
+ }

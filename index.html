@@ -11,16 +11,21 @@
       <h1>todos</h1>
       <section class="todoInput">
         <input type="text" placeholder="What needs to be done?" autofocus />
-
-        <div class="mainList">
+      </section>
+      <section class="hiddenBlock">
+        <div class="btn__allCompl">
+<input type="checkbox" class="allCompl">
+<label for="allCompl" class="allCompl-label"></label>
+        </div>
+        <ul class="mainList">
           <div class="list__item">
             <section class="leftItem">
-              <input type="radio" name="" id="" />
+              <input type="checkbox" name="" id="" />
               <label for="">1</label>
             </section>
-            <section class="rigthItem">x</section>
+            <button class="delX"></button>
           </div>
-        </div>
+        </ul>
         <div class="footerList">
           <label><span>1</span> item left </label>
           <ul>
@@ -28,8 +33,10 @@
             <li><button>Active</button></li>
             <li><button>Completed</button></li>
           </ul>
+          <button class="clearCompl">Clear completed</button>
         </div>
       </section>
+      
     </section>
   </body>
 </html>
