@@ -10,7 +10,7 @@
     <section class="mainSection">
       <h1>todos</h1>
       <section class="todoInput">
-        <input type="text" placeholder="What needs to be done?" autofocus />
+        <input onkeydown="todoAdd(this)" class="todoAdd" type="text" placeholder="What needs to be done?" autofocus />
       </section>
       <section class="hiddenBlock">
         <div class="btn__allCompl">
@@ -38,5 +38,6 @@
       </section>
       
     </section>
+<script src="./js.js"></script>
   </body>
 </html>
