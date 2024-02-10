@@ -14,7 +14,7 @@ function todoAdd(point){
                 checked: false
             }
             toDoList.push(newToDo);
-            // console.log(toDoList)
+            console.log(toDoList)
             displayMessages();
         }
     }
@@ -27,7 +27,7 @@ function displayMessages(){
     <div class='list__item'>
     <section class='leftItem'>
       <input type='checkbox' name='checkInput' id='item__${i}'  />
-      <label for='item__${i}' id='labelTxt'>${item.toDoItem}</label>
+      <label for='item__${i}' id='labelTxt'>${item.toDoTxt}</label>
     </section>
     <button class='delX'></button>
   </div>
