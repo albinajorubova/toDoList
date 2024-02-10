@@ -10,7 +10,7 @@
     <section class="mainSection">
       <h1>todos</h1>
       <section class="todoInput">
-        <input onkeydown="todoAdd(this)" class="todoAdd" type="text" placeholder="What needs to be done?" autofocus />
+        <input onkeydown="todoAdd(this)" class="todoAdd" type="text" placeholder="What needs to be done?" autofocus autocomplete="off" />
       </section>
       <section class="hiddenBlock">
         <div class="btn__allCompl">
@@ -20,12 +20,14 @@
         <ul class="mainList">
           <div class="list__item">
             <section class="leftItem">
-              <input type="checkbox" name="" id="" />
-              <label for="">1</label>
+              <input type="checkbox" name="checkInput" id="checkInput"  />
+              <label for="checkInput" id="labelTxt"></label>
             </section>
             <button class="delX"></button>
           </div>
         </ul>
+
+     
         <div class="footerList">
           <label><span>1</span> item left </label>
           <ul>
