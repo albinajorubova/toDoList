@@ -3,8 +3,7 @@ let toDoItem = document.querySelector('.mainList')
 let toDoList = []; 
 
 
-if(localStorage.getItem('todo')){
-  
+if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
     hiddenBlock.classList.add('active');
     displayMessages();
