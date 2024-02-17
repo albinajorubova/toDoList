@@ -1,7 +1,7 @@
 const hiddenBlock = document.getElementsByClassName('hiddenBlock')[0];
 let toDoItem = document.querySelector('.mainList')
 let toDoList = []; 
-
+let btnAllCheck = document.querySelector('.allCompl-label');
 
 if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
@@ -43,3 +43,59 @@ function displayMessages(){
     toDoItem.innerHTML = displayMessage;
     });
 }
+
+toDoItem.addEventListener('change', function(event){
+  let idInput = (event.target.getAttribute('id'));
+  let labelFor = toDoItem.querySelector('[for =' + idInput + ']')
+  let valueLabel = labelFor.innerHTML;
+  toDoList.forEach(function(item){
+    if(item.toDoTxt === valueLabel){
+        item.checked = !item.checked;
+        localStorage.setItem ("todo", JSON.stringify(toDoList));
+    }
+   
+  })
+})
+
+var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+function NotAllCheckboxesChecked() {
+    let allChecked = true;
+  
+    checkboxes.forEach((checkbox) => {
+      if (!checkbox.checked) {
+        allChecked = false;
+        return;
+      }
+    });
+  
+    return !allChecked;
+  }
+
+function selectAll(){
+    if (NotAllCheckboxesChecked()){
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = true;    
+    });
+    toDoList.forEach(function(item){
+        if(item.checked != true){
+            item.checked = true;        
+    localStorage.setItem ("todo", JSON.stringify(toDoList));
+        }
+    })
+}
+else{
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;    
+    });
+    toDoList.forEach(function(item){
+        if(item.checked = true){
+            item.checked = false;        
+    localStorage.setItem ("todo", JSON.stringify(toDoList));
+        }
+    })
+}
+}
+
+
+
+
