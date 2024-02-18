@@ -9,23 +9,32 @@ if(localStorage.getItem('todo')){
     displayMessages();
 }
 
+function updateHiddenBlock() {
+    if (toDoList.length === 0) {
+        hiddenBlock.classList.remove('active'); 
+    } else {
+        hiddenBlock.classList.add('active'); 
+    }
+}
+updateHiddenBlock();
+
 function todoAdd(point){
     if(event.key == 'Enter'){
         if(point.value.trim() !== '' && point.value !== null){
             let inputValue = point.value;
             point.value = "";
-            hiddenBlock.classList.add('active');
             document.getElementById("labelTxt").textContent = inputValue; 
             let newToDo ={
                 toDoTxt: inputValue,
                 checked: false
             }
             toDoList.push(newToDo);
-            console.log(toDoList)
             displayMessages();
             localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     }
+    updateHiddenBlock();
+    countLefts();
 }
 
 function displayMessages(){
@@ -42,6 +51,12 @@ function displayMessages(){
     `;
     toDoItem.innerHTML = displayMessage;
     });
+    let hasCheckedItem = toDoList.some(item => item.checked === true);
+    if (hasCheckedItem) {
+        document.querySelector('.clearCompl').classList.add('active');
+    } else {
+        document.querySelector('.clearCompl').classList.remove('active');
+    }
 }
 
 toDoItem.addEventListener('change', function(event){
@@ -56,9 +71,8 @@ toDoItem.addEventListener('change', function(event){
     }
 
   })
+  countLefts();
 })
-
-
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 function NotAllCheckboxesChecked() {
@@ -74,34 +88,53 @@ function NotAllCheckboxesChecked() {
     return !allChecked;
   }
 
-function selectAll(){
-    if (NotAllCheckboxesChecked()){
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = true;  
-        
+  function selectAll() {
+    if (NotAllCheckboxesChecked()) {
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = true;  
+        });
+        toDoList.forEach(function(item) {
+            if (item.checked !== true) {
+                item.checked = true;       
+                displayMessages();   
+                localStorage.setItem("todo", JSON.stringify(toDoList));
+            }
+        });
+    } else {
+        checkboxes.forEach(function(checkbox) {
+            checkbox.checked = false;    
+        });
+        toDoList.forEach(function(item) {
+            if (item.checked === true) { 
+                item.checked = false;   
+                displayMessages();       
+                localStorage.setItem("todo", JSON.stringify(toDoList));
+            }
+        });
+    }
+    countLefts();
+}
+
+function clearCompleted() {
+    let filteredList = toDoList.filter(function(item) {
+        return !item.checked;
     });
-    toDoList.forEach(function(item){
-        if(item.checked != true){
-            item.checked = true;       
-            displayMessages();   
-    localStorage.setItem ("todo", JSON.stringify(toDoList));
-        }
-    })
+    toDoList = filteredList;
+    localStorage.setItem("todo", JSON.stringify(toDoList));
+    displayMessages();
+    updateHiddenBlock();
 }
-else{
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = false;    
+
+let countLeft;
+let spanLeft = document.querySelector('.spanLeft');
+
+function countLefts(){
+    countLeft = 0; 
+    toDoList.forEach(function(item){
+        if(item.checked === false){
+            countLeft++;
+        }
     });
-    toDoList.forEach(function(item){
-        if(item.checked = true){
-            item.checked = false;   
-            displayMessages();       
-    localStorage.setItem ("todo", JSON.stringify(toDoList));
-        }
-    })
+    spanLeft.innerHTML = countLeft;
 }
-}
-
-
-
 
