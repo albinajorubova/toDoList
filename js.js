@@ -35,7 +35,7 @@ function displayMessages(){
     <div class='list__item'>
     <section class='leftItem'>
       <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
-      <label for='item__${i}' id='labelTxt'>${item.toDoTxt}</label>
+      <label for='item__${i}' id='labelTxt' class="${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
     </section>
     <button class='delX'></button>
   </div>
@@ -49,13 +49,16 @@ toDoItem.addEventListener('change', function(event){
   let labelFor = toDoItem.querySelector('[for =' + idInput + ']')
   let valueLabel = labelFor.innerHTML;
   toDoList.forEach(function(item){
-    if(item.toDoTxt === valueLabel){
+    if(item.toDoTxt === valueLabel){    
         item.checked = !item.checked;
+        displayMessages();
         localStorage.setItem ("todo", JSON.stringify(toDoList));
     }
-   
+
   })
 })
+
+
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 function NotAllCheckboxesChecked() {
@@ -74,11 +77,13 @@ function NotAllCheckboxesChecked() {
 function selectAll(){
     if (NotAllCheckboxesChecked()){
     checkboxes.forEach(function(checkbox) {
-        checkbox.checked = true;    
+        checkbox.checked = true;  
+        
     });
     toDoList.forEach(function(item){
         if(item.checked != true){
-            item.checked = true;        
+            item.checked = true;       
+            displayMessages();   
     localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     })
@@ -89,7 +94,8 @@ else{
     });
     toDoList.forEach(function(item){
         if(item.checked = true){
-            item.checked = false;        
+            item.checked = false;   
+            displayMessages();       
     localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     })

@@ -80,6 +80,11 @@ body {
   color: #111;
 }
 
+.label-checked{
+  color: #949494;
+    text-decoration: line-through;
+}
+
 .todoInput input[type="text"]:focus{
   border: 2px solid rgba(175, 47, 47, 0.15);
 }
