@@ -3,6 +3,7 @@ let toDoItem = document.querySelector('.mainList')
 let toDoList = []; 
 let btnAllCheck = document.querySelector('.allCompl-label');
 
+
 if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
     hiddenBlock.classList.add('active');
@@ -134,7 +135,26 @@ function countLefts(){
         if(item.checked === false){
             countLeft++;
         }
+        
     });
     spanLeft.innerHTML = countLeft;
+    if (countLeft === 0){
+        let style = document.createElement('style');
+        style.innerHTML = `
+        .allCompl+label::before {
+            color: #484848;
+          }
+        `;
+        document.head.appendChild(style);
+    }
+    else{
+        let style = document.createElement('style');
+        style.innerHTML = `
+        .allCompl+label::before {
+            color: #949494;
+          }
+        `;
+        document.head.appendChild(style);
+    }
 }
 

@@ -76,9 +76,10 @@ body {
     transform: rotate(90deg);
 }
 
-.allCompl-label:{
-  color: #111;
+.allCompl.black+label::before {
+  color: black;
 }
+
 
 .label-checked{
   color: #949494;
