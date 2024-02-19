@@ -1,8 +1,8 @@
 const hiddenBlock = document.getElementsByClassName('hiddenBlock')[0];
-let toDoItem = document.querySelector('.mainList')
+let toDoItem = document.querySelector('.mainList');
 let toDoList = []; 
 let btnAllCheck = document.querySelector('.allCompl-label');
-
+let delXItems = document.getElementsByClassName('delX');
 
 if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
@@ -47,10 +47,20 @@ function displayMessages(){
       <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
       <label for='item__${i}' id='labelTxt' class="${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
     </section>
-    <button class='delX'></button>
+    <button class='delX' data-id='${i}'></button>
   </div>
     `;
     toDoItem.innerHTML = displayMessage;
+    });
+    let delXItems = document.querySelectorAll('.delX');
+    delXItems.forEach(function(delXItem) {
+        delXItem.addEventListener('click', function(event) {
+            let numDelX = parseInt(event.target.getAttribute('data-id'));
+            toDoList = toDoList.filter((item, index) => index !== numDelX);
+            localStorage.setItem("todo", JSON.stringify(toDoList));
+            updateHiddenBlock();
+            displayMessages();
+        });
     });
     let hasCheckedItem = toDoList.some(item => item.checked === true);
     if (hasCheckedItem) {
@@ -74,6 +84,9 @@ toDoItem.addEventListener('change', function(event){
   })
   countLefts();
 })
+
+
+
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 function NotAllCheckboxesChecked() {
