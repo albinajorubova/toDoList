@@ -45,13 +45,26 @@ function displayMessages(){
     <div class='list__item'>
     <section class='leftItem'>
       <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
-      <label for='item__${i}' id='labelTxt' class="${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
+      <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
     </section>
     <button class='delX' data-id='${i}'></button>
   </div>
     `;
     toDoItem.innerHTML = displayMessage;
     });
+
+    let hasCheckedItem = toDoList.some(item => item.checked === true);
+    if (hasCheckedItem) {
+        document.querySelector('.clearCompl').classList.add('active');
+    } else {
+        document.querySelector('.clearCompl').classList.remove('active');
+    }
+
+    addDeleteButtonEventListeners();    
+ 
+}
+
+function addDeleteButtonEventListeners() {
     let delXItems = document.querySelectorAll('.delX');
     delXItems.forEach(function(delXItem) {
         delXItem.addEventListener('click', function(event) {
@@ -60,32 +73,35 @@ function displayMessages(){
             localStorage.setItem("todo", JSON.stringify(toDoList));
             updateHiddenBlock();
             displayMessages();
+            countLefts();
         });
     });
-    let hasCheckedItem = toDoList.some(item => item.checked === true);
-    if (hasCheckedItem) {
-        document.querySelector('.clearCompl').classList.add('active');
-    } else {
-        document.querySelector('.clearCompl').classList.remove('active');
-    }
 }
 
-toDoItem.addEventListener('change', function(event){
-  let idInput = (event.target.getAttribute('id'));
-  let labelFor = toDoItem.querySelector('[for =' + idInput + ']')
-  let valueLabel = labelFor.innerHTML;
-  toDoList.forEach(function(item){
-    if(item.toDoTxt === valueLabel){    
-        item.checked = !item.checked;
-        displayMessages();
-        localStorage.setItem ("todo", JSON.stringify(toDoList));
+toDoItem.addEventListener('dblclick', function(event) {
+    if (event.target.classList.contains('labelTxt')) {
+        console.log('Клик');
     }
-
-  })
-  countLefts();
-})
-
-
+});
+ 
+toDoItem.addEventListener('change', function(event) {
+    if (event.target.type === 'checkbox') {
+        let idInput = event.target.getAttribute('id');
+        let labelFor = document.querySelector(`[data-id="${idInput}"]`);
+        if (labelFor) {
+            if (event.target.checked) {
+                labelFor.classList.add('label-checked');
+            } else {
+                labelFor.classList.remove('label-checked');
+            }
+        }        
+        let itemIndex = parseInt(idInput.split('__')[1]);
+        toDoList[itemIndex].checked = event.target.checked;
+        localStorage.setItem("todo", JSON.stringify(toDoList));
+        displayMessages();
+        countLefts();
+    }
+});
 
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -102,7 +118,7 @@ function NotAllCheckboxesChecked() {
     return !allChecked;
   }
 
-  function selectAll() {
+function selectAll() {
     if (NotAllCheckboxesChecked()) {
         checkboxes.forEach(function(checkbox) {
             checkbox.checked = true;  
@@ -171,3 +187,4 @@ function countLefts(){
     }
 }
 
+countLefts();

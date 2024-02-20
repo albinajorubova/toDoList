@@ -125,10 +125,12 @@ input:active {
 .leftItem {
   display: flex;
   gap: 30px;
+  width: 100%;
 
 }
 .leftItem label{
   display: block;
+  width: 100%;
     font-weight: 400;
     font-size: 18px;
     line-height: 1.2;
