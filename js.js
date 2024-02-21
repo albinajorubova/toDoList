@@ -3,6 +3,7 @@ let toDoItem = document.querySelector('.mainList');
 let toDoList = []; 
 let btnAllCheck = document.querySelector('.allCompl-label');
 let delXItems = document.getElementsByClassName('delX');
+const tabsBtn = document.querySelectorAll('.tabsBtn');
 
 if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
@@ -62,7 +63,7 @@ function displayMessages(){
     }
 
     addDeleteButtonEventListeners();    
- 
+   
 }
 
 function addDeleteButtonEventListeners() {
@@ -219,4 +220,53 @@ function countLefts(){
     }
 }
 
+tabsBtn.forEach(function(item) {
+    item.addEventListener("click", function() {
+        let currentBtn = item;
+        let tabId = currentBtn.getAttribute('data-tab');
+        console.log(tabId);
+        tabsBtn.forEach(function(item) {
+            item.classList.remove('tab__active');
+        });
+        currentBtn.classList.add('tab__active');
+        getFilterList(tabId);
+    });
+});
+
+const listItems = document.querySelectorAll('.list__item');
+
+function getFilterList(tab) {
+    
+    switch (tab) {
+        case 'tab_all':
+            listItems.forEach(item => {
+                item.style.display = 'flex'; 
+            });
+            break;
+        case 'tab_active':
+            listItems.forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox && !checkbox.checked) {
+                    item.style.display = 'flex'; 
+                } else {
+                    item.style.display = 'none'; 
+                }
+            });
+            break;
+        case 'tab_completed':
+            listItems.forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    item.style.display = 'flex'; 
+                } else {
+                    item.style.display = 'none'; 
+                }
+            });
+            break;
+    }
+   
+
+}
+
+getFilterList('tab_all');
 countLefts();

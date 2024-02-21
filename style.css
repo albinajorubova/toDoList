@@ -221,6 +221,10 @@ li button:hover{
   border: 1px solid #c18585;
   border-radius: 4px;
 }
+.tab__active{
+  border: 1px solid #c18585;
+  border-radius: 4px;
+}
 .clearCompl{
  z-index: 2;
  display: none;
