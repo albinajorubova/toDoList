@@ -115,6 +115,7 @@ input:active {
   gap: 5%;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .list__item:hover .delX{
   visibility: visible;
@@ -137,6 +138,16 @@ input:active {
     transition: color .4s;
     word-break: break-all;
     text-align: left;
+}
+.hiddenInput {
+  z-index: 2;
+  display: none;
+  position: absolute;
+  top: 0%;
+  right: 0;
+  padding: 25px;
+  border: 2px solid rgba(175, 47, 47, 0.15);
+  width: var(--list__item-width);
 }
 .delX{
 visibility: hidden;
@@ -224,6 +235,7 @@ text-decoration: underline;
 .active{
   display: block;
 }
+
 @media (max-width: 700px){
   .footerList{
     align-items: center;
@@ -254,6 +266,8 @@ text-decoration: underline;
   .leftItem label{
     font-size: 12px;
   }
+
+
 }
  @media(max-width: 400px){
   .footerList label, .footerList ul li, .footerList button, .footerList label span{

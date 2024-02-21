@@ -46,6 +46,7 @@ function displayMessages(){
     <section class='leftItem'>
       <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
       <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
+      <input type="text" class="hiddenInput" style="--list__item-width: calc(100% - 50px);"  />
     </section>
     <button class='delX' data-id='${i}'></button>
   </div>
@@ -77,12 +78,6 @@ function addDeleteButtonEventListeners() {
         });
     });
 }
-
-toDoItem.addEventListener('dblclick', function(event) {
-    if (event.target.classList.contains('labelTxt')) {
-        console.log('Клик');
-    }
-});
  
 toDoItem.addEventListener('change', function(event) {
     if (event.target.type === 'checkbox') {
@@ -101,6 +96,43 @@ toDoItem.addEventListener('change', function(event) {
         displayMessages();
         countLefts();
     }
+});
+
+toDoItem.addEventListener('dblclick', function(event) {
+    if (event.target.tagName === 'LABEL') { 
+        let labelId = event.target.getAttribute('data-id');
+        let labelTxt = event.target.innerText;
+        let input = event.target.nextElementSibling;     
+        input.classList.add('active');
+        input.value = labelTxt;   
+        input.select();
+        input.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                if (input.value.trim() === '') { 
+                    toDoList.splice(labelId, 1);
+                    localStorage.setItem("todo", JSON.stringify(toDoList)); 
+                    updateHiddenBlock();
+                    displayMessages(); 
+                    countLefts(); 
+                } else {
+                    event.target.previousElementSibling.innerText = input.value;
+                    input.classList.remove('active');
+                    toDoList[labelId].toDoTxt = input.value;  
+                    localStorage.setItem("todo", JSON.stringify(toDoList));  
+                    displayMessages(); 
+                    countLefts();               
+                }
+            } 
+        });
+    document.addEventListener('click', function(event) {
+    let isInputClicked = input.contains(event.target) || event.target === input;
+    let isInputActive = input.classList.contains('active');
+    if (!isInputClicked && isInputActive) {
+        input.classList.remove('active');
+    }
+});
+
+    } 
 });
 
 
