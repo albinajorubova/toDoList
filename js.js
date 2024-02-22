@@ -39,7 +39,7 @@ function todoAdd(point){
     }
     updateHiddenBlock();
     countLefts();
-    getFilterList();
+    filteredList(); 
 }
 
 // Отображение списка задач
@@ -81,7 +81,7 @@ function addDeleteButtonEventListeners() {
             updateHiddenBlock();
             displayMessages();
             countLefts();
-            getFilterList();
+            filteredList();
         });
     });
 }
@@ -103,7 +103,7 @@ toDoItem.addEventListener('change', function(event) {
         localStorage.setItem("todo", JSON.stringify(toDoList));
         displayMessages();
         countLefts();
-        getFilterList();
+        filteredList();
     }
 });
 
@@ -161,7 +161,7 @@ function NotAllCheckboxesChecked() {
     return !allChecked;
   }
 
-  // Кнопка отметить все задачи/снять все задачи
+// Кнопка отметить все задачи/снять все задачи
 function selectAll() {
     if (NotAllCheckboxesChecked()) {
         checkboxes.forEach(function(checkbox) {
@@ -187,6 +187,7 @@ function selectAll() {
         });
     }
     countLefts();
+    filteredList();
 }
 
 // Удалить выполненные задачи
@@ -239,49 +240,35 @@ tabsBtn.forEach(function(item) {
     item.addEventListener("click", function() {
         let currentBtn = item;
         let tabId = currentBtn.getAttribute('data-tab');
-        console.log(tabId);
         tabsBtn.forEach(function(item) {
             item.classList.remove('tab__active');
         });
         currentBtn.classList.add('tab__active');
-        getFilterList(tabId);
-
+        filteredList();
     });
- 
+   
 });
 
-// Фильтрация списка задач по вкладкам
-function getFilterList(tab) {
-    const listItems = document.querySelectorAll('.list__item');
-    switch (tab) {
-        case 'tab_all':
-            listItems.forEach(item => {
-                item.style.display = 'flex'; 
-            });
-            break;
-        case 'tab_active':
-            listItems.forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                if (checkbox && !checkbox.checked) {
-                    item.style.display = 'flex'; 
-                } else {
-                    item.style.display = 'none'; 
-                }
-            });
-            break;
-        case 'tab_completed':
-            listItems.forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                if (checkbox && checkbox.checked) {
-                    item.style.display = 'flex'; 
-                } else {
-                    item.style.display = 'none'; 
-                }
-            });
-            break;
-    }
+function filteredList() {
+    const activeTab = document.querySelector('.tab__active');
+    let data_tab = activeTab.getAttribute('data-tab');
+    console.log(data_tab);
+    let toDoItems = document.querySelectorAll('.mainList .list__item');
 
+    toDoItems.forEach(function(item) {
+        let checkbox = item.querySelector('input[type="checkbox"]');
+        if (data_tab === "active" && checkbox.checked) {
+            item.style.display = 'none';
+        } else if (data_tab === "completed" && !checkbox.checked) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = ''; 
+        }
+    });
+    updateHiddenBlock(); 
 }
 
-getFilterList('tab_all');
+
+
+
 countLefts();
