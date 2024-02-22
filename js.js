@@ -39,6 +39,7 @@ function todoAdd(point){
     }
     updateHiddenBlock();
     countLefts();
+    getFilterList();
 }
 
 // Отображение списка задач
@@ -48,7 +49,7 @@ function displayMessages(){
     displayMessage += `
     <div class='list__item'>
     <section class='leftItem'>
-      <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
+      <input type='checkbox' name='checkInput'  id='item__${i}' ${item.checked ? 'checked': ''} />
       <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
       <input type="text" class="hiddenInput" style="--list__item-width: calc(100% - 50px);"  />
     </section>
@@ -80,6 +81,7 @@ function addDeleteButtonEventListeners() {
             updateHiddenBlock();
             displayMessages();
             countLefts();
+            getFilterList();
         });
     });
 }

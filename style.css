@@ -129,6 +129,7 @@ input:active {
   width: 100%;
 
 }
+
 .leftItem label{
   display: block;
   width: 100%;
@@ -139,6 +140,9 @@ input:active {
     word-break: break-all;
     text-align: left;
 }
+
+
+
 .hiddenInput {
   z-index: 2;
   display: none;
