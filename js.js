@@ -11,6 +11,7 @@ if(localStorage.getItem('todo')){
     displayMessages();
 }
 
+// Обновление видимости скрытого блока
 function updateHiddenBlock() {
     if (toDoList.length === 0) {
         hiddenBlock.classList.remove('active'); 
@@ -20,6 +21,7 @@ function updateHiddenBlock() {
 }
 updateHiddenBlock();
 
+// Добавление задачи
 function todoAdd(point){
     if(event.key == 'Enter'){
         if(point.value.trim() !== '' && point.value !== null){
@@ -39,6 +41,7 @@ function todoAdd(point){
     countLefts();
 }
 
+// Отображение списка задач
 function displayMessages(){
     let displayMessage = '';
     toDoList.forEach(function(item, i){
@@ -66,6 +69,7 @@ function displayMessages(){
    
 }
 
+// Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
     let delXItems = document.querySelectorAll('.delX');
     delXItems.forEach(function(delXItem) {
@@ -80,6 +84,7 @@ function addDeleteButtonEventListeners() {
     });
 }
  
+// Обработчик изменения состояния чекбоксов
 toDoItem.addEventListener('change', function(event) {
     if (event.target.type === 'checkbox') {
         let idInput = event.target.getAttribute('id');
@@ -96,9 +101,11 @@ toDoItem.addEventListener('change', function(event) {
         localStorage.setItem("todo", JSON.stringify(toDoList));
         displayMessages();
         countLefts();
+        getFilterList();
     }
 });
 
+// Обработчик двойного клика для редактирования & редактирование
 toDoItem.addEventListener('dblclick', function(event) {
     if (event.target.tagName === 'LABEL') { 
         let labelId = event.target.getAttribute('data-id');
@@ -138,6 +145,7 @@ toDoItem.addEventListener('dblclick', function(event) {
 
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+// Получение информации об отмеченных чекбоксах
 function NotAllCheckboxesChecked() {
     let allChecked = true;
   
@@ -151,6 +159,7 @@ function NotAllCheckboxesChecked() {
     return !allChecked;
   }
 
+  // Кнопка отметить все задачи/снять все задачи
 function selectAll() {
     if (NotAllCheckboxesChecked()) {
         checkboxes.forEach(function(checkbox) {
@@ -178,6 +187,7 @@ function selectAll() {
     countLefts();
 }
 
+// Удалить выполненные задачи
 function clearCompleted() {
     let filteredList = toDoList.filter(function(item) {
         return !item.checked;
@@ -191,6 +201,7 @@ function clearCompleted() {
 let countLeft;
 let spanLeft = document.querySelector('.spanLeft');
 
+// Подсчет оставшихся задач
 function countLefts(){
     countLeft = 0; 
     toDoList.forEach(function(item){
@@ -220,6 +231,8 @@ function countLefts(){
     }
 }
 
+
+// Обработчик клика по вкладкам-фильтрам
 tabsBtn.forEach(function(item) {
     item.addEventListener("click", function() {
         let currentBtn = item;
@@ -230,13 +243,14 @@ tabsBtn.forEach(function(item) {
         });
         currentBtn.classList.add('tab__active');
         getFilterList(tabId);
+
     });
+ 
 });
 
-const listItems = document.querySelectorAll('.list__item');
-
+// Фильтрация списка задач по вкладкам
 function getFilterList(tab) {
-    
+    const listItems = document.querySelectorAll('.list__item');
     switch (tab) {
         case 'tab_all':
             listItems.forEach(item => {
@@ -264,7 +278,6 @@ function getFilterList(tab) {
             });
             break;
     }
-   
 
 }
 
