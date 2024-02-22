@@ -68,7 +68,7 @@ function displayMessages(){
     }
 
     addDeleteButtonEventListeners();    
-   
+    filteredList();
 }
 
 // Обработчик событий для кнопок удаления задачи
@@ -200,6 +200,7 @@ function clearCompleted() {
     localStorage.setItem("todo", JSON.stringify(toDoList));
     displayMessages();
     updateHiddenBlock();
+    filteredList();
 }
 
 let countLeft;
