@@ -34,12 +34,13 @@ function todoAdd(point){
             }
             toDoList.push(newToDo);
             displayMessages();
+            filteredList(); 
             localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     }
     updateHiddenBlock();
     countLefts();
-    filteredList(); 
+   
 }
 
 // Отображение списка задач
