@@ -42,24 +42,25 @@ function todoAdd(point){
     countLefts();
    
 }
-
-// Отображение списка задач
+// Отображение списка задач в обратном порядке
 function displayMessages(){
     let displayMessage = '';
-    toDoList.forEach(function(item, i){
-    displayMessage += `
-    <div class='list__item'>
-    <section class='leftItem'>
-      <input type='checkbox' name='checkInput'  id='item__${i}' ${item.checked ? 'checked': ''} />
-      <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
-      <input type="text" class="hiddenInput" style="--list__item-width: calc(100% - 50px);"  />
-    </section>
-    <button class='delX' data-id='${i}'></button>
-  </div>
-    `;
+    for (let i = toDoList.length - 1; i >= 0; i--) {
+        const item = toDoList[i];
+        displayMessage += `
+        <div class='list__item'>
+            <section class='leftItem'>
+                <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
+                <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
+                <input type="text" class="hiddenInput" style="--list__item-width: calc(100% - 50px);"  />
+            </section>
+            <button class='delX' data-id='${i}'></button>
+        </div>
+        `;
+    }
     toDoItem.innerHTML = displayMessage;
-    });
 
+    // Остальной код функции остается неизменным
     let hasCheckedItem = toDoList.some(item => item.checked === true);
     if (hasCheckedItem) {
         document.querySelector('.clearCompl').classList.add('active');
@@ -70,6 +71,7 @@ function displayMessages(){
     addDeleteButtonEventListeners();    
     filteredList();
 }
+
 
 // Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
@@ -133,7 +135,10 @@ toDoItem.addEventListener('dblclick', function(event) {
                     displayMessages(); 
                     countLefts();               
                 }
-            } 
+            } else if (event.key === 'Escape') { // Добавляем обработчик для клавиши Esc
+                input.classList.remove('active');
+                input.value = labelTxt; // Возвращаем оригинальный текст
+            }
         });
     document.addEventListener('click', function(event) {
     let isInputClicked = input.contains(event.target) || event.target === input;
@@ -145,6 +150,7 @@ toDoItem.addEventListener('dblclick', function(event) {
 
     } 
 });
+
 
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');

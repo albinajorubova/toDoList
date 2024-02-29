@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDoList</title>
     <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/png" href="./assets/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./assets/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="./assets/android-chrome-512x512.png" sizes="512x512">
+    <link rel="icon" type="image/png" href="./assets/apple-touch-icon.png" sizes="192x192">
   </head>
   <body>
     <section class="mainSection">
@@ -20,12 +25,14 @@
         <ul class="mainList">
           <div class="list__item">
             <section class="leftItem">
-              <input type="checkbox" name="checkInput" id="checkInput" />
-              <label for="" id="labelTxt" data-id="1"></label>
-              <input type="text" class="hiddenInput" style="--list__item-width: calc(91%);" />
+                
+                <input type="checkbox" name="checkInput" id="checkInput"  />
+                <label for="checkInput" id="labelTxt" data-id="1"></label>
+                <input type="text" class="hiddenInput" style="--list__item-width: calc(91%);" />
             </section>
             <button class="delX"></button>
-          </div>
+        </div>
+        
         </ul>
         <div class="footerList">
           <label><span class="spanLeft">1</span> item left </label>
