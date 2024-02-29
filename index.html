@@ -15,7 +15,7 @@
     <section class="mainSection">
       <h1>todos</h1>
       <section class="todoInput">
-        <input onkeydown="todoAdd(this)" class="todoAdd" type="text" placeholder="What needs to be done?" autofocus autocomplete="off" />
+        <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?"  autofocus autocomplete="off"/>
       </section>
       <section class="hiddenBlock">
         <div class="btn__allCompl">

@@ -22,17 +22,16 @@ function updateHiddenBlock() {
 updateHiddenBlock();
 
 // Добавление задачи
-function todoAdd(point){
+function todoAdd(event, point){
     if(event.key == 'Enter'){
         if(point.value.trim() !== '' && point.value !== null){
             let inputValue = point.value;
             point.value = "";
-            document.getElementById("labelTxt").textContent = inputValue; 
             let newToDo ={
                 toDoTxt: inputValue,
                 checked: false
             }
-            toDoList.push(newToDo);
+            toDoList.unshift(newToDo);
             displayMessages();
             filteredList(); 
             localStorage.setItem ("todo", JSON.stringify(toDoList));
@@ -40,12 +39,12 @@ function todoAdd(point){
     }
     updateHiddenBlock();
     countLefts();
-   
 }
+
 // Отображение списка задач в обратном порядке
 function displayMessages(){
     let displayMessage = '';
-    for (let i = toDoList.length - 1; i >= 0; i--) {
+    for (let i = 0; i < toDoList.length; i++) {
         const item = toDoList[i];
         displayMessage += `
         <div class='list__item'>
@@ -72,6 +71,24 @@ function displayMessages(){
     filteredList();
 }
 
+
+function filteredList() {
+    const activeTab = document.querySelector('.tab__active');
+    let data_tab = activeTab.getAttribute('data-tab');
+    let toDoItems = document.querySelectorAll('.mainList .list__item');
+
+    toDoItems.forEach(function(item) {
+        let checkbox = item.querySelector('input[type="checkbox"]');
+        if (data_tab === "active" && checkbox.checked) {
+            item.style.display = 'none';
+        } else if (data_tab === "completed" && !checkbox.checked) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = ''; 
+        }
+    });
+    updateHiddenBlock(); 
+}
 
 // Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
@@ -199,15 +216,16 @@ function selectAll() {
 
 // Удалить выполненные задачи
 function clearCompleted() {
-    let filteredList = toDoList.filter(function(item) {
+    let filteredTasks  = toDoList.filter(function(item) {
         return !item.checked;
     });
-    toDoList = filteredList;
+    toDoList = filteredTasks;
     localStorage.setItem("todo", JSON.stringify(toDoList));
     displayMessages();
     updateHiddenBlock();
     filteredList();
 }
+
 
 let countLeft;
 let spanLeft = document.querySelector('.spanLeft');
@@ -257,24 +275,7 @@ tabsBtn.forEach(function(item) {
    
 });
 
-function filteredList() {
-    const activeTab = document.querySelector('.tab__active');
-    let data_tab = activeTab.getAttribute('data-tab');
-    console.log(data_tab);
-    let toDoItems = document.querySelectorAll('.mainList .list__item');
 
-    toDoItems.forEach(function(item) {
-        let checkbox = item.querySelector('input[type="checkbox"]');
-        if (data_tab === "active" && checkbox.checked) {
-            item.style.display = 'none';
-        } else if (data_tab === "completed" && !checkbox.checked) {
-            item.style.display = 'none';
-        } else {
-            item.style.display = ''; 
-        }
-    });
-    updateHiddenBlock(); 
-}
 
 
 
