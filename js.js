@@ -136,37 +136,43 @@ toDoItem.addEventListener('dblclick', function(event) {
         input.classList.add('active');
         input.value = labelTxt;   
         input.select();
+        
+        function saveChanges() {
+            if (input.value.trim() === '') { 
+                toDoList.splice(labelId, 1);
+                localStorage.setItem("todo", JSON.stringify(toDoList)); 
+                updateHiddenBlock();
+                displayMessages(); 
+                countLefts(); 
+            } else {
+                event.target.previousElementSibling.innerText = input.value;
+                input.classList.remove('active');
+                toDoList[labelId].toDoTxt = input.value;  
+                localStorage.setItem("todo", JSON.stringify(toDoList));  
+                displayMessages(); 
+                countLefts();               
+            }
+        }
+        
         input.addEventListener('keyup', function(event) {
             if (event.key === 'Enter') {
-                if (input.value.trim() === '') { 
-                    toDoList.splice(labelId, 1);
-                    localStorage.setItem("todo", JSON.stringify(toDoList)); 
-                    updateHiddenBlock();
-                    displayMessages(); 
-                    countLefts(); 
-                } else {
-                    event.target.previousElementSibling.innerText = input.value;
-                    input.classList.remove('active');
-                    toDoList[labelId].toDoTxt = input.value;  
-                    localStorage.setItem("todo", JSON.stringify(toDoList));  
-                    displayMessages(); 
-                    countLefts();               
-                }
-            } else if (event.key === 'Escape') { // Добавляем обработчик для клавиши Esc
+                saveChanges();
+            } else if (event.key === 'Escape') {
                 input.classList.remove('active');
-                input.value = labelTxt; // Возвращаем оригинальный текст
+                input.value = labelTxt; 
             }
         });
-    document.addEventListener('click', function(event) {
-    let isInputClicked = input.contains(event.target) || event.target === input;
-    let isInputActive = input.classList.contains('active');
-    if (!isInputClicked && isInputActive) {
-        input.classList.remove('active');
-    }
-});
-
+        
+        document.addEventListener('click', function(event) {
+            let isInputClicked = input.contains(event.target) || event.target === input;
+            let isInputActive = input.classList.contains('active');
+            if (!isInputClicked && isInputActive) {
+                saveChanges();
+            }
+        });
     } 
 });
+
 
 
 
