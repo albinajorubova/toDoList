@@ -21,9 +21,21 @@ function updateHiddenBlock() {
 }
 updateHiddenBlock();
 
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        todoAdd(event, document.querySelector('.mainInput'));
+    }
+});
+
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.todoInput')) {
+        todoAdd(event, document.querySelector('.mainInput'));
+    }
+});
+
 // Добавление задачи
 function todoAdd(event, point){
-    if(event.key == 'Enter'){
+    if(event.key == 'Enter' || event.type === 'click'){
         if(point.value.trim() !== '' && point.value !== null){
             let inputValue = point.value;
             point.value = "";
