@@ -1,11 +1,8 @@
-const hiddenInput = document.querySelector('.hiddenInput');
-hiddenInput.style.setProperty('--listItemWidth', 'calc(91%)');
-
 const hiddenBlock = document.querySelector('.hiddenBlock');
 let toDoItem = document.querySelector('.mainList');
 let toDoList = []; 
 let btnAllCheck = document.querySelector('.allComplLabel');
-let delXItems = document.querySelectorAll('.delX');
+let deleteBtnItems = document.querySelectorAll('.deleteBtn');
 const tabsBtn = document.querySelectorAll('.tabsBtn');
 
 if(localStorage.getItem('todo')){  
@@ -62,19 +59,18 @@ function displayMessages(){
     for (let i = 0; i < toDoList.length; i++) {
         const item = toDoList[i];
         displayMessage += `
-        <div class='listItem'>
+        <li class='listItem'>
             <section class='leftItem'>
                 <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
                 <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
-                <input type="text" class="hiddenInput" style="--listItemWidth: calc(100% - 50px);"  />
+                <input type="text" class="hiddenInput"  />
             </section>
-            <button class='delX' data-id='${i}'></button>
-        </div>
+            <button class='deleteBtn' data-id='${i}'>
+        </li>
         `;
     }
     toDoItem.innerHTML = displayMessage;
 
-    // Остальной код функции остается неизменным
     let hasCheckedItem = toDoList.some(item => item.checked === true);
     if (hasCheckedItem) {
         document.querySelector('.clearCompl').classList.add('active');
@@ -107,11 +103,11 @@ function filteredList() {
 
 // Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
-    let delXItems = document.querySelectorAll('.delX');
-    delXItems.forEach(function(delXItem) {
-        delXItem.addEventListener('click', function(event) {
-            let numDelX = parseInt(event.target.getAttribute('data-id'));
-            toDoList = toDoList.filter((item, index) => index !== numDelX);
+    let deleteBtnItems = document.querySelectorAll('.deleteBtn');
+    deleteBtnItems.forEach(function(deleteBtnItem) {
+        deleteBtnItem.addEventListener('click', function(event) {
+            let numdeleteBtn = parseInt(event.target.getAttribute('data-id'));
+            toDoList = toDoList.filter((item, index) => index !== numdeleteBtn);
             localStorage.setItem("todo", JSON.stringify(toDoList));
             updateHiddenBlock();
             displayMessages();
@@ -142,6 +138,18 @@ toDoItem.addEventListener('change', function(event) {
     }
 });
 
+// Функция для установки ширины .hiddenInput для всех элементов
+function updateHiddenInputWidth() {
+    const listItem = document.querySelectorAll('.listItem');
+
+    listItem.forEach(listItem => {
+        const hiddenInput = listItem.querySelector('.hiddenInput');
+        const listItemWidth = listItem.getBoundingClientRect().width;
+        hiddenInput.style.width = `calc(${listItemWidth}px * 0.91)`;
+    });
+}
+
+
 // Обработчик двойного клика для редактирования & редактирование
 toDoItem.addEventListener('dblclick', function(event) {
     if (event.target.tagName === 'LABEL') { 
@@ -151,7 +159,7 @@ toDoItem.addEventListener('dblclick', function(event) {
         input.classList.add('active');
         input.value = labelTxt;   
         input.select();
-        
+        updateHiddenInputWidth();
         function saveChanges() {
             if (input.value.trim() === '') { 
                 toDoList.splice(labelId, 1);
@@ -187,9 +195,6 @@ toDoItem.addEventListener('dblclick', function(event) {
         });
     } 
 });
-
-
-
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 // Получение информации об отмеченных чекбоксах

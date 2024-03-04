@@ -122,11 +122,11 @@ input:active {
   position: relative;
 }
 
-.listItem:hover .delX {
+.listItem:hover .deleteBtn {
   visibility: visible;
 }
 
-.delX:hover {
+.deleteBtn:hover {
   color: #c18585;
 }
 
@@ -155,10 +155,9 @@ input:active {
   right: 0;
   padding: 25px;
   border: 2px solid rgba(175, 47, 47, 0.15);
-  width: var(--listItemWidth);
 }
 
-.delX {
+.deleteBtn {
   visibility: hidden;
   color: #949494;
   font-size: 30px;
@@ -168,7 +167,7 @@ input:active {
   width: 30px;
 }
 
-.delX::after {
+.deleteBtn::after {
   content: "×";
   display: block;
   height: 100%;
@@ -179,7 +178,7 @@ input:active {
   border-top: 1px solid #e6e6e6;
 }
 
-button {
+li button, .clearCompl {
   border: none;
   background-color: transparent;
 }
@@ -221,7 +220,7 @@ ul {
   display: block;
 }
 
-li button {
+.footerBtn {
   z-index: 2;
   cursor: pointer;
   color: #777;
@@ -229,7 +228,7 @@ li button {
   padding: 4px;
 }
 
-li button:hover {
+.footerBtn:hover {
   border: 1px solid #c18585;
   border-radius: 4px;
 }
