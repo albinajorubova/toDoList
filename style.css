@@ -6,27 +6,29 @@
   text-decoration: none;
 }
 
-
 body {
   background-color: #f5f5f5;
   margin: 0 auto;
 }
+
 .mainSection {
   padding: 0 30px;
   display: flex;
   align-items: center;
   flex-direction: column;
-
 }
+
 .mainSection h1 {
   color: rgba(175, 47, 47, 0.15);
   font-size: 100px;
   margin: 20px auto;
 }
+
 .todoInput {
   width: 100%;
   max-width: 600px;
 }
+
 .todoInput input[type="text"] {
   position: relative;
   padding: 20px 16px 20px 60px;
@@ -35,14 +37,14 @@ body {
   font-size: 1.6em;
   height: auto;
   box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.03);
-  /* box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2); */
-
   -webkit-font-smoothing: antialiased;
 }
-.btn__allCompl{
+
+.btnAllCompl {
   position: relative;
-    height: 0;
+  height: 0;
 }
+
 .allCompl {
   position: relative;
   left: 0;
@@ -66,45 +68,47 @@ body {
   width: 45px;
 }
 
-.allCompl+label::before{
-    color: #949494;
-    content: "❯";
-    display: inline-block;
-    font-size: 22px;
-    padding: 10px 27px;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+.allCompl+label::before {
+  color: #949494;
+  content: "❯";
+  display: inline-block;
+  font-size: 22px;
+  padding: 10px 27px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .allCompl.black+label::before {
   color: black;
 }
 
-
-.label-checked{
+.labelChecked {
   color: #949494;
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
-.todoInput input[type="text"]:focus{
+.todoInput input[type="text"]:focus {
   border: 2px solid rgba(175, 47, 47, 0.15);
 }
+
 input::placeholder {
   color: #e8e6e6;
   font-style: italic;
 }
+
 input:focus,
 input:hover,
 input:active {
   outline: none;
 }
-.hiddenBlock{
+
+.hiddenBlock {
   width: 100%;
   max-width: 600px;
   display: none;
 }
 
-.list__item {
+.listItem {
   width: 100%;
   height: 100%;
   padding: 20px 20px 20px 16px;
@@ -117,31 +121,31 @@ input:active {
   align-items: center;
   position: relative;
 }
-.list__item:hover .delX{
+
+.listItem:hover .delX {
   visibility: visible;
 }
-.delX:hover{
+
+.delX:hover {
   color: #c18585;
 }
+
 .leftItem {
   display: flex;
   gap: 30px;
   width: 100%;
-
 }
 
-.leftItem label{
+.leftItem label {
   display: block;
   width: 100%;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.2;
-    transition: color .4s;
-    word-break: break-all;
-    text-align: left;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  transition: color 0.4s;
+  word-break: break-all;
+  text-align: left;
 }
-
-
 
 .hiddenInput {
   z-index: 2;
@@ -151,31 +155,35 @@ input:active {
   right: 0;
   padding: 25px;
   border: 2px solid rgba(175, 47, 47, 0.15);
-  width: var(--list__item-width);
+  width: var(--listItemWidth);
 }
-.delX{
-visibility: hidden;
+
+.delX {
+  visibility: hidden;
   color: #949494;
   font-size: 30px;
   height: 30px;
   margin: auto 0;
-
-  transition: color .2s ease-out;
+  transition: color 0.2s ease-out;
   width: 30px;
 }
-.delX::after{
+
+.delX::after {
   content: "×";
   display: block;
   height: 100%;
   line-height: 1.1;
 }
+
 .mainList {
   border-top: 1px solid #e6e6e6;
 }
+
 button {
   border: none;
   background-color: transparent;
 }
+
 .footerList {
   width: 100%;
   background-color: white;
@@ -195,12 +203,11 @@ button {
   left: 0;
   height: 50px;
   overflow: hidden;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
-    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
-    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
   text-align: center;
   border-top: 1px solid #e6e6e6;
 }
+
 ul {
   z-index: 2;
   list-style: none;
@@ -210,7 +217,7 @@ ul {
   text-align: center;
 }
 
-.mainList{
+.mainList {
   display: block;
 }
 
@@ -221,39 +228,47 @@ li button {
   border: 1px solid transparent;
   padding: 4px;
 }
-li button:hover{
+
+li button:hover {
   border: 1px solid #c18585;
   border-radius: 4px;
-}
-.tab__active{
-  border: 1px solid #c18585;
-  border-radius: 4px;
-}
-.clearCompl{
- z-index: 2;
- display: none;
- color: #777;
- text-decoration: none;
- cursor: pointer;
-}
-.clearCompl:hover{
-text-decoration: underline;
 }
 
-.active{
+.tabActive {
+  border: 1px solid #c18585;
+  border-radius: 4px;
+}
+
+.clearCompl {
+  z-index: 2;
+  display: none;
+  color: #777;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clearCompl:hover {
+  text-decoration: underline;
+}
+
+.active {
   display: block;
 }
 
-@media (max-width: 700px){
-  .footerList{
+@media (max-width: 700px) {
+  .footerList {
     align-items: center;
     justify-content: center;
     gap: 12%;
   }
-  .footerList label, .footerList ul li, .footerList button{
+
+  .footerList label,
+  .footerList ul li,
+  .footerList button {
     font-size: 12px;
-  } 
-  .footerList ul{
+  }
+
+  .footerList ul {
     gap: 5px;
   }
 }
@@ -262,23 +277,32 @@ text-decoration: underline;
   .todoInput input[type="text"] {
     font-size: 1em;
   }
+
   h1 {
     font-size: 50px;
   }
-  .footerList{
+
+  .footerList {
     gap: 5%;
   }
-  .footerList label, .footerList ul li, .footerList button, .footerList label span{
-    font-size: 12px;
-  } 
-  .leftItem label{
+
+  .footerList label,
+  .footerList ul li,
+  .footerList button,
+  .footerList label span {
     font-size: 12px;
   }
 
-
+  .leftItem label {
+    font-size: 12px;
+  }
 }
- @media(max-width: 400px){
-  .footerList label, .footerList ul li, .footerList button, .footerList label span{
+
+@media (max-width: 400px) {
+  .footerList label,
+  .footerList ul li,
+  .footerList button,
+  .footerList label span {
     font-size: 9px;
-  } 
- }
+  }
+}

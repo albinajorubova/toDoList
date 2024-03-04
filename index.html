@@ -1,51 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDoList</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="icon" type="image/png" href="./assets/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="./assets/android-chrome-192x192.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="./assets/android-chrome-512x512.png" sizes="512x512">
-    <link rel="icon" type="image/png" href="./assets/apple-touch-icon.png" sizes="192x192">
-  </head>
-  <body>
-    <section class="mainSection">
-      <h1>todos</h1>
-      <section class="todoInput">
-        <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?"  autofocus autocomplete="off"/>
-      </section>
-      <section class="hiddenBlock">
-        <div class="btn__allCompl">
-<input type="checkbox" class="allCompl">
-<label for="allCompl" class="allCompl-label" onclick="selectAll()"></label>
-        </div>
-        <ul class="mainList">
-          <div class="list__item">
-            <section class="leftItem">
-                
-                <input type="checkbox" name="checkInput" id="checkInput"  />
-                <label for="checkInput" id="labelTxt" data-id="1"></label>
-                <input type="text" class="hiddenInput" style="--list__item-width: calc(91%);" />
-            </section>
-            <button class="delX"></button>
-        </div>
-        
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToDoList</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" type="image/png" href="./assets/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="./assets/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="./assets/android-chrome-512x512.png" sizes="512x512">
+  <link rel="icon" type="image/png" href="./assets/apple-touch-icon.png" sizes="192x192">
+</head>
+<body>
+  <section class="mainSection">
+    <h1>todos</h1>
+    <div class="todoInput">
+      <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?"  autofocus autocomplete="off"/>
+    </div>
+    <div class="hiddenBlock">
+      <div class="btnAllCompl">
+        <input type="checkbox" class="allCompl">
+          <label for="allCompl" class="allComplLabel" onclick="selectAll()"></label>
+      </div>
+      <ul class="mainList">
+        <div class="listItem">
+          <div class="leftItem">
+              <input type="checkbox" name="checkInput" id="checkInput"  />
+              <label for="checkInput" id="labelTxt" data-id="1">
+              <input type="text" class="hiddenInput" style="--listItemWidth: calc(91%);" />
+              </div>
+          <button class="delX"></button>
+      </div>
+      </ul>
+      <div class="footerList">
+        <label><span class="spanLeft">1</span> item left </label>
+        <ul>
+          <li class="tabsBtn tabActive" data-tab="all"><button>All</button></li>
+          <li class="tabsBtn" data-tab="active"><button>Active</button></li>
+          <li class="tabsBtn" data-tab="completed"><button>Completed</button></li>
         </ul>
-        <div class="footerList">
-          <label><span class="spanLeft">1</span> item left </label>
-          <ul>
-            <li class="tabsBtn tab__active" data-tab="all"><button>All</button></li>
-            <li class="tabsBtn" data-tab="active"><button>Active</button></li>
-            <li class="tabsBtn" data-tab="completed"><button>Completed</button></li>
-          </ul>
-          <button class="clearCompl" onclick="clearCompleted()">Clear completed</button>
-        </div>
-      </section>
-      
+        <button class="clearCompl" onclick="clearCompleted()">Clear completed</button>
+      </div>
     </section>
-<script src="./js.js"></script>
-  </body>
+  <script src="./js.js"></script>
+</body>
 </html>

@@ -1,8 +1,11 @@
-const hiddenBlock = document.getElementsByClassName('hiddenBlock')[0];
+const hiddenInput = document.querySelector('.hiddenInput');
+hiddenInput.style.setProperty('--listItemWidth', 'calc(91%)');
+
+const hiddenBlock = document.querySelector('.hiddenBlock');
 let toDoItem = document.querySelector('.mainList');
 let toDoList = []; 
-let btnAllCheck = document.querySelector('.allCompl-label');
-let delXItems = document.getElementsByClassName('delX');
+let btnAllCheck = document.querySelector('.allComplLabel');
+let delXItems = document.querySelectorAll('.delX');
 const tabsBtn = document.querySelectorAll('.tabsBtn');
 
 if(localStorage.getItem('todo')){  
@@ -59,11 +62,11 @@ function displayMessages(){
     for (let i = 0; i < toDoList.length; i++) {
         const item = toDoList[i];
         displayMessage += `
-        <div class='list__item'>
+        <div class='listItem'>
             <section class='leftItem'>
                 <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
-                <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'label-checked' : ''}">${item.toDoTxt}</label>
-                <input type="text" class="hiddenInput" style="--list__item-width: calc(100% - 50px);"  />
+                <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
+                <input type="text" class="hiddenInput" style="--listItemWidth: calc(100% - 50px);"  />
             </section>
             <button class='delX' data-id='${i}'></button>
         </div>
@@ -85,15 +88,15 @@ function displayMessages(){
 
 
 function filteredList() {
-    const activeTab = document.querySelector('.tab__active');
-    let data_tab = activeTab.getAttribute('data-tab');
-    let toDoItems = document.querySelectorAll('.mainList .list__item');
+    const activeTab = document.querySelector('.tabActive');
+    let dataTab = activeTab.getAttribute('data-tab');
+    let toDoItems = document.querySelectorAll('.mainList .listItem');
 
     toDoItems.forEach(function(item) {
         let checkbox = item.querySelector('input[type="checkbox"]');
-        if (data_tab === "active" && checkbox.checked) {
+        if (dataTab === "active" && checkbox.checked) {
             item.style.display = 'none';
-        } else if (data_tab === "completed" && !checkbox.checked) {
+        } else if (dataTab === "completed" && !checkbox.checked) {
             item.style.display = 'none';
         } else {
             item.style.display = ''; 
@@ -125,9 +128,9 @@ toDoItem.addEventListener('change', function(event) {
         let labelFor = document.querySelector(`[data-id="${idInput}"]`);
         if (labelFor) {
             if (event.target.checked) {
-                labelFor.classList.add('label-checked');
+                labelFor.classList.add('labelChecked');
             } else {
-                labelFor.classList.remove('label-checked');
+                labelFor.classList.remove('labelChecked');
             }
         }        
         let itemIndex = parseInt(idInput.split('__')[1]);
@@ -190,7 +193,7 @@ toDoItem.addEventListener('dblclick', function(event) {
 
 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 // Получение информации об отмеченных чекбоксах
-function NotAllCheckboxesChecked() {
+function notAllCheckboxesChecked() {
     let allChecked = true;
   
     checkboxes.forEach((checkbox) => {
@@ -205,7 +208,7 @@ function NotAllCheckboxesChecked() {
 
 // Кнопка отметить все задачи/снять все задачи
 function selectAll() {
-    if (NotAllCheckboxesChecked()) {
+    if (notAllCheckboxesChecked()) {
         checkboxes.forEach(function(checkbox) {
             checkbox.checked = true;  
         });
@@ -261,7 +264,7 @@ function countLefts(){
     if (countLeft === 0){
         let style = document.createElement('style');
         style.innerHTML = `
-        .allCompl+label::before {
+        .allComplLabel::before {
             color: #484848;
           }
         `;
@@ -270,7 +273,7 @@ function countLefts(){
     else{
         let style = document.createElement('style');
         style.innerHTML = `
-        .allCompl+label::before {
+        .allComplLabel::before {
             color: #949494;
           }
         `;
@@ -285,17 +288,12 @@ tabsBtn.forEach(function(item) {
         let currentBtn = item;
         let tabId = currentBtn.getAttribute('data-tab');
         tabsBtn.forEach(function(item) {
-            item.classList.remove('tab__active');
+            item.classList.remove('tabActive');
         });
-        currentBtn.classList.add('tab__active');
+        currentBtn.classList.add('tabActive');
         filteredList();
     });
    
 });
-
-
-
-
-
 
 countLefts();
