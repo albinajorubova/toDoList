@@ -1,4 +1,5 @@
 const hiddenBlock = document.querySelector('.hiddenBlock');
+const btnAllCompl = document.querySelector('.btnAllCompl');
 let toDoItem = document.querySelector('.mainList');
 let toDoList = []; 
 let btnAllCheck = document.querySelector('.allComplLabel');
@@ -15,8 +16,10 @@ if(localStorage.getItem('todo')){
 function updateHiddenBlock() {
     if (toDoList.length === 0) {
         hiddenBlock.classList.remove('active'); 
+        btnAllCompl.classList.remove('activeFlex')
     } else {
         hiddenBlock.classList.add('active'); 
+        btnAllCompl.classList.add('activeFlex')
     }
 }
 updateHiddenBlock();
@@ -65,7 +68,7 @@ function displayMessages(){
                 <label for="" id="labelTxt" data-id='${i}' class="labelTxt ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
                 <input type="text" class="hiddenInput"  />
             </section>
-            <button class='deleteBtn' data-id='${i}'>
+            <button class='deleteBtn clearBtn' data-id='${i}'>
         </li>
         `;
     }
@@ -138,7 +141,7 @@ toDoItem.addEventListener('change', function(event) {
     }
 });
 
-// Функция для установки ширины .hiddenInput для всех элементов
+// Функция для установки ширины 
 function updateHiddenInputWidth() {
     const listItem = document.querySelectorAll('.listItem');
 
@@ -148,7 +151,6 @@ function updateHiddenInputWidth() {
         hiddenInput.style.width = `calc(${listItemWidth}px * 0.91)`;
     });
 }
-
 
 // Обработчик двойного клика для редактирования & редактирование
 toDoItem.addEventListener('dblclick', function(event) {

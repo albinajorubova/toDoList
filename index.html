@@ -15,22 +15,22 @@
   <section class="mainSection">
     <h1>todos</h1>
     <div class="todoInput">
-      <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?"  autofocus autocomplete="off"/>
-    </div>
-    <div class="hiddenBlock">
+      <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?" autofocus autocomplete="off"/>
       <div class="btnAllCompl">
-        <input type="checkbox" class="allCompl" >
-        <label class="allComplLabel" onclick="selectAll()" >
+        <input type="checkbox" class="allCompl">
+        <label class="allComplLabel" onclick="selectAll()"></label>
       </div>
+    </div>    
+    <div class="hiddenBlock">
       <ul class="mainList"></ul>
       <div class="footerList">
         <div><span class="spanLeft">1</span> item left </div>
-        <ul>
-          <li class="tabsBtn tabActive" data-tab="all"><button class="footerBtn">All</button></li>
-          <li class="tabsBtn" data-tab="active"><button class="footerBtn">Active</button></li>
-          <li class="tabsBtn" data-tab="completed"><button class="footerBtn">Completed</button></li>
+        <ul class="ulList">
+          <li class="tabsBtn tabActive" data-tab="all"><button class="footerBtn clearBtn">All</button></li>
+          <li class="tabsBtn" data-tab="active"><button class="footerBtn clearBtn">Active</button></li>
+          <li class="tabsBtn" data-tab="completed"><button class="footerBtn clearBtn">Completed</button></li>
         </ul>
-        <button class="clearCompl" onclick="clearCompleted()">Clear completed</button>
+        <button class="clearCompl clearBtn" onclick="clearCompleted()">Clear completed</button>
       </div>
     </div>
     </section>
