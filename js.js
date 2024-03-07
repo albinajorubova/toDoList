@@ -6,7 +6,6 @@ let btnAllCheck = document.querySelector('.allCompl__label');
 let deleteBtnItems = document.querySelectorAll('.taskItem__deleteBtn');
 const tabsBtn = document.querySelectorAll('.tasksFilter__btn');
 
-
 if(localStorage.getItem('todo')){  
     toDoList = JSON.parse(localStorage.getItem ("todo"));
     hiddenBlock.classList.add('showBlock');
@@ -50,13 +49,11 @@ function todoAdd(event, point){
             toDoList.unshift(newToDo);
             displayMessages();
             filteredList(); 
-            retrieveAndDisplayTasksFromLocalStorage();
             localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     }
     updateHiddenBlock();
     countLefts();
-  
 }
 
 // Отображение списка задач в обратном порядке
@@ -68,7 +65,7 @@ function displayMessages(){
         <li class='taskItem'>
             <div class='taskContent'>
                 <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
-                <label id="labelTxt" data-id='${i}' class="taskContent__label" ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
+                <label id="labelTxt" data-id='${i}' class="taskContent__label ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
                 <input type="text" class="editItemInput"  />
             </div>
             <button class='taskItem__deleteBtn' data-id='${i}'></button>
@@ -83,10 +80,8 @@ function displayMessages(){
     } else {
         document.querySelector('.clearComplBtn').classList.remove('showBlock');
     }
-
     addDeleteButtonEventListeners();    
     filteredList();
-
 }
 
 //функция фильтрации по кнопкам
@@ -114,9 +109,6 @@ function filteredList() {
       });
     });
   }
-  
-  filteredList();
-  
 
 // Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
@@ -130,7 +122,6 @@ function addDeleteButtonEventListeners() {
             displayMessages();
             countLefts();
             filteredList();
-            retrieveAndDisplayTasksFromLocalStorage();
         });
     });
 }
@@ -139,34 +130,24 @@ function addDeleteButtonEventListeners() {
 toDoItem.addEventListener('change', function(event) {
     if (event.target.type === 'checkbox') {
         let idInput = event.target.getAttribute('id');
+        let labelFor = document.querySelector(`[data-id="${idInput}"]`);
+
+        if (labelFor) {
+            if (event.target.checked) {
+                labelFor.classList.add('labelChecked');
+            } else {
+                labelFor.classList.remove('labelChecked');
+            }
+        }
+
         let itemIndex = parseInt(idInput.split('__')[1]);
         toDoList[itemIndex].checked = event.target.checked;
         localStorage.setItem("todo", JSON.stringify(toDoList));
+        displayMessages();
         countLefts();
         filteredList();
-        retrieveAndDisplayTasksFromLocalStorage();
     }
-
 });
-
-// Получение данных из локального хранилища и отображение задач
-function retrieveAndDisplayTasksFromLocalStorage() {
-    if(localStorage.getItem('todo')) {  
-        toDoList = JSON.parse(localStorage.getItem("todo"));
-        hiddenBlock.classList.add('showBlock');
-        displayMessages();
-    }
-
-    toDoList.forEach(function(item, index) {
-        const label = document.querySelector(`label[data-id='${index}']`);
-        if (item.checked) {
-            label.classList.add('labelChecked');
-        } else {
-            label.classList.remove('labelChecked');
-        }
-    });
-}
-retrieveAndDisplayTasksFromLocalStorage();
 
 // Функция для установки ширины 
 function updateeditItemInputWidth() {
@@ -195,8 +176,6 @@ toDoItem.addEventListener('dblclick', function(event) {
                 updateHiddenBlock();
                 displayMessages(); 
                 countLefts(); 
-                retrieveAndDisplayTasksFromLocalStorage();
-                
             } else {
                 event.target.previousElementSibling.innerText = input.value;
                 input.classList.remove('showBlock');
@@ -204,8 +183,6 @@ toDoItem.addEventListener('dblclick', function(event) {
                 localStorage.setItem("todo", JSON.stringify(toDoList));  
                 displayMessages(); 
                 countLefts();  
-                retrieveAndDisplayTasksFromLocalStorage();
-
             }
         }
         
@@ -232,16 +209,14 @@ var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 // Получение информации об отмеченных чекбоксах
 function notAllCheckboxesChecked() {
     let allChecked = true;
-  
     checkboxes.forEach((checkbox) => {
       if (!checkbox.checked) {
         allChecked = false;
         return;
       }
     });
-  
     return !allChecked;
-  }
+}
 
 // Кнопка отметить все задачи/снять все задачи
 function selectAll() {
@@ -270,7 +245,6 @@ function selectAll() {
     }
     countLefts();
     filteredList();
-    retrieveAndDisplayTasksFromLocalStorage();
 }
 
 // Удалить выполненные задачи
@@ -319,7 +293,6 @@ function countLefts(){
     }
 }
 
-
 // Обработчик клика по вкладкам-фильтрам
 tabsBtn.forEach(function(item) {
     item.addEventListener("click", function() {
@@ -331,8 +304,6 @@ tabsBtn.forEach(function(item) {
         currentBtn.classList.add('filterActive');
         filteredList();
     });
-    retrieveAndDisplayTasksFromLocalStorage();
-   
 });
 
 countLefts();
