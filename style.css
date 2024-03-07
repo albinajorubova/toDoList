@@ -11,6 +11,17 @@ body {
   background-color: #f5f5f5;
 }
 
+input:focus,
+input:hover,
+input:active {
+  outline: none;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
 .mainSection {
   padding: 0 30px;
   display: flex;
@@ -30,81 +41,66 @@ body {
   width: 100%;
 }
 
-.todoInput input[type="text"] {
+.todoInput__input {
   width: 100%;
   height: auto;
   font-size: 1.6em;
   padding: 20px 16px 20px 60px;
   border: 2px solid transparent;
   box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.03);
-  -webkit-font-smoothing: antialiased;
 }
 
-.btnAllCompl {
-  height: 0;
-}
-
-.allCompl {
-  height: 1px;
-  width: 1px;
-  border: none;
-  opacity: 0;
-}
-
-.allComplLabel {
+.allComplBtn {
   position: absolute;
-  left: 0.5%;
-  top: 6%;
-  display: flex;
-  width: 45px;
-  height: 65px;
-  align-items: center;
-  justify-content: center;
-  font-size: 0;
+  top: 50%;
+  left: 0;
+  display: none;
+  transform: translateY(-50%);
+}
+
+.allCompl__checkbox {
+  display: none;
+}
+
+.allCompl__label {
+  padding: 0 20px;
   cursor: pointer;
 }
 
-.allComplLabel::before {
+.allCompl__label::before {
   content: "❯";
   display: inline-block;
-  padding: 10px 27px;
   color: #949494;
   font-size: 22px;
   transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
 }
 
-.allComplLabel.black::before {
+.allCompl__label.black::before {
   color: black;
 }
 
 .labelChecked {
-  color: #949494;
   text-decoration: line-through;
+  color: #949494;
 }
 
-.todoInput input[type="text"]:focus {
+.todoInput__input:focus {
   border: 2px solid rgba(175, 47, 47, 0.15);
 }
 
-input::placeholder {
+.todoInput__input::placeholder {
   font-style: italic;
   color: #e8e6e6;
 }
 
-input:focus,
-input:hover,
-input:active {
-  outline: none;
-}
-
-.hiddenBlock {
+.tasksContainer {
   display: none;
   max-width: 600px;
   width: 100%;
 }
 
-.listItem {
+.taskItem {
+  position: relative;
   display: flex;
   padding: 20px 20px 20px 16px;
   width: 100%;
@@ -117,21 +113,21 @@ input:active {
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
 }
 
-.listItem:hover .deleteBtn {
+.taskItem:hover .taskItem__deleteBtn {
   visibility: visible;
 }
 
-.deleteBtn:hover {
+.taskItem__deleteBtn:hover {
   color: #c18585;
 }
 
-.leftItem {
+.taskContent {
   display: flex;
   width: 100%;
   gap: 30px;
 }
 
-.leftItem label {
+.taskContent__label {
   display: block;
   width: 100%;
   text-align: left;
@@ -142,16 +138,16 @@ input:active {
   word-break: break-all;
 }
 
-.hiddenInput {
+.editItemInput {
   position: absolute;
-  top: 0%;
+  top: 0;
   right: 0;
   display: none;
   padding: 25px;
   border: 2px solid rgba(175, 47, 47, 0.15);
 }
 
-.deleteBtn {
+.taskItem__deleteBtn {
   width: 30px;
   height: 30px;
   margin: auto 0;
@@ -161,23 +157,18 @@ input:active {
   visibility: hidden;
 }
 
-.deleteBtn::after {
+.taskItem__deleteBtn::after {
   content: "×";
   display: block;
   height: 100%;
   line-height: 1.1;
 }
 
-.mainList {
+.tasksList {
   border-top: 1px solid #e6e6e6;
 }
 
-.clearBtn {
-  background-color: transparent;
-  border: none;
-}
-
-.footerList {
+.tasksMenu {
   position: relative;
   display: flex;
   width: 100%;
@@ -186,23 +177,26 @@ input:active {
   align-items: center;
   color: #777;
   background-color: white;
+  border-top: 1px solid #e6e6e6;
 }
 
-.footerList:before {
-  z-index: -1;
+.tasksMenu::before {
   content: "";
   position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-  height: 50px;
+  height: 20px;
   text-align: center;
-  border-top: 1px solid #e6e6e6;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  box-shadow: 
+  0 1px 1px rgba(0, 0, 0, 0.2), 
+  0 8px 0 -3px #f6f6f6, 
+  0 9px 1px -3px rgba(0, 0, 0, 0.2), 
+  0 16px 0 -6px #f6f6f6, 
+  0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.ulList {
+.tasksFilters {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -210,57 +204,58 @@ input:active {
   list-style: none;
 }
 
-.footerBtn {
+.tasksFilter__btn {
   padding: 4px;
   color: #777;
   border: 1px solid transparent;
   cursor: pointer;
 }
 
-.footerBtn:hover, .tabActive  {
+.tasksFilter__btn:hover, 
+.filterActive {
   border: 1px solid #c18585;
   border-radius: 4px;
 }
 
-.clearCompl {
+.clearComplBtn {
   display: none;
   color: #777;
-  text-decoration: none;
   cursor: pointer;
 }
 
-.clearCompl:hover {
+.clearComplBtn:hover {
   text-decoration: underline;
 }
 
-.active {
+.showBlock {
   display: block;
 }
 
-.activeFlex{
+.showButton {
   display: flex;
 }
 
 @media (max-width: 700px) {
-  .footerList {
+  .tasksMenu {
     gap: 12%;
     align-items: center;
     justify-content: center;
   }
 
-  .footerList label,
-  .footerList ul li,
-  .footerList button {
+  .counterTasks,
+  .footerBtn,
+  .clearComplBtn,
+  .tasksCount {
     font-size: 12px;
   }
 
-  .footerList ul {
+  .tasksFilters {
     gap: 5px;
   }
 }
 
 @media (max-width: 500px) {
-  .todoInput input[type="text"] {
+  .todoInput__input {
     font-size: 1em;
   }
 
@@ -268,27 +263,27 @@ input:active {
     font-size: 50px;
   }
 
-  .footerList {
+  .tasksMenu {
     gap: 5%;
   }
 
-  .footerList label,
-  .footerList ul li,
-  .footerList button,
-  .footerList label span {
+  .counterTasks,
+  .footerBtn 
+  .clearComplBtn,
+  .tasksCount {
     font-size: 12px;
   }
 
-  .leftItem label {
+  .taskContent__label {
     font-size: 12px;
   }
 }
 
 @media (max-width: 400px) {
-  .footerList label,
-  .footerList ul li,
-  .footerList button,
-  .footerList label span {
+  .counterTasks,
+  .footerBtn,
+  .clearComplBtn,
+  .tasksCount {
     font-size: 9px;
   }
 }

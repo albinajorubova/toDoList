@@ -15,22 +15,22 @@
   <section class="mainSection">
     <h1>todos</h1>
     <div class="todoInput">
-      <input type="text" class="mainInput" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?" autofocus autocomplete="off"/>
-      <div class="btnAllCompl">
-        <input type="checkbox" class="allCompl">
-        <label class="allComplLabel" onclick="selectAll()"></label>
+      <input type="text" class="todoInput__input" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?" autofocus autocomplete="off"/>
+      <div class="allComplBtn">
+        <input type="checkbox" class="allCompl__checkbox">
+        <label class="allCompl__label" onclick="selectAll()"/>
       </div>
     </div>    
-    <div class="hiddenBlock">
-      <ul class="mainList"></ul>
-      <div class="footerList">
-        <div><span class="spanLeft">1</span> item left </div>
-        <ul class="ulList">
-          <li class="tabsBtn tabActive" data-tab="all"><button class="footerBtn clearBtn">All</button></li>
-          <li class="tabsBtn" data-tab="active"><button class="footerBtn clearBtn">Active</button></li>
-          <li class="tabsBtn" data-tab="completed"><button class="footerBtn clearBtn">Completed</button></li>
+    <div class="tasksContainer">
+      <ul class="tasksList"></ul>
+      <div class="tasksMenu">
+        <div class="counterTasks"><span class="tasksCount">1</span> item left </div>
+        <ul class="tasksFilters">
+          <li class="tasksFilter__btn filterActive" data-tab="all"><button class="footerBtn">All</button></li>
+          <li class="tasksFilter__btn" data-tab="active"><button class="footerBtn">Active</button></li>
+          <li class="tasksFilter__btn" data-tab="completed"><button class="footerBtn">Completed</button></li>
         </ul>
-        <button class="clearCompl clearBtn" onclick="clearCompleted()">Clear completed</button>
+        <button class="clearComplBtn" onclick="clearCompleted()">Clear completed</button>
       </div>
     </div>
     </section>
