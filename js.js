@@ -26,18 +26,18 @@ updateHiddenBlock();
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        todoAdd(event, document.querySelector('.todoInput__input'));
+        todoAddTask(event, document.querySelector('.todoInput__input'));
     }
 });
 
 document.addEventListener('click', function(event) {
     if (!event.target.closest('.todoInput')) {
-        todoAdd(event, document.querySelector('.todoInput__input'));
+        todoAddTask(event, document.querySelector('.todoInput__input'));
     }
 });
 
 // Добавление задачи
-function todoAdd(event, point){
+function todoAddTask(event, point){
     if(event.key == 'Enter' || event.type === 'click'){
         if(point.value.trim() !== '' && point.value !== null){
             let inputValue = point.value;
@@ -150,7 +150,7 @@ toDoItem.addEventListener('change', function(event) {
 });
 
 // Функция для установки ширины 
-function updateeditItemInputWidth() {
+function updateEditItemInputWidth() {
     const tasks = document.querySelectorAll('.taskItem');
     tasks.forEach(tasks => {
         const editItemInput = tasks.querySelector('.editItemInput');
@@ -168,7 +168,7 @@ toDoItem.addEventListener('dblclick', function(event) {
         input.classList.add('showBlock');
         input.value = labelTxt;   
         input.select();
-        updateeditItemInputWidth();
+        updateEditItemInputWidth();
         function saveChanges() {
             if (input.value.trim() === '') { 
                 toDoList.splice(labelId, 1);
@@ -219,7 +219,7 @@ function notAllCheckboxesChecked() {
 }
 
 // Кнопка отметить все задачи/снять все задачи
-function selectAll() {
+function selectAllTasks() {
     if (notAllCheckboxesChecked()) {
         checkboxes.forEach(function(checkbox) {
             checkbox.checked = true;  
