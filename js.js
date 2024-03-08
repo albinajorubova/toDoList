@@ -7,7 +7,7 @@ let deleteBtnItems = document.querySelectorAll('.taskItem__deleteBtn');
 const tabsBtn = document.querySelectorAll('.tasksFilter__btn');
 
 if(localStorage.getItem('todo')){  
-    toDoList = JSON.parse(localStorage.getItem ("todo"));
+    toDoList = JSON.parse(localStorage.getItem("todo"));
     hiddenBlock.classList.add('showBlock');
     displayMessages();
 }
@@ -48,7 +48,6 @@ function todoAddTask(event, point){
             }
             toDoList.unshift(newToDo);
             displayMessages();
-            filteredList(); 
             localStorage.setItem ("todo", JSON.stringify(toDoList));
         }
     }
@@ -81,42 +80,34 @@ function displayMessages(){
         document.querySelector('.clearComplBtn').classList.remove('showBlock');
     }
     addDeleteButtonEventListeners();    
-    filteredList();
 }
 
-//функция фильтрации по кнопкам
+// Функция фильтрации по кнопкам
 function filteredList() {
-    const tabsBtn = document.querySelectorAll('.tasksFilter__btn');
-    const tasks = document.querySelectorAll('.taskItem');
-  
-    tabsBtn.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabsBtn.forEach(tab => tab.classList.remove('filterActive'));
-        btn.classList.add('filterActive');
-  
-        const tab = btn.getAttribute('data-tab');
-        tasks.forEach(task => {
-          if (tab === 'all') {
-            task.style.display = 'flex';
-          } else if (tab === 'active' && !task.querySelector('input[type="checkbox"]').checked) {
-            task.style.display = 'flex';
-          } else if (tab === 'completed' && task.querySelector('input[type="checkbox"]').checked) {
-            task.style.display = 'flex';
-          } else {
-            task.style.display = 'none';
-          }
-        });
-      });
+    const activeTab = document.querySelector('.tasksFilter__btn.filterActive');
+    let data_tab = activeTab.getAttribute('data-tab');
+    let taskItems = document.querySelectorAll('.taskItem');
+
+    taskItems.forEach(function(item) {
+        let checkbox = item.querySelector('input[type="checkbox"]');
+        if (data_tab === "active" && checkbox.checked) {
+            item.style.display = 'none';
+        } else if (data_tab === "completed" && !checkbox.checked) {
+            item.style.display = 'none';
+        } else {
+            item.style.display = ''; 
+        }
     });
-  }
+    updateHiddenBlock(); 
+}
 
 // Обработчик событий для кнопок удаления задачи
 function addDeleteButtonEventListeners() {
     let deleteBtnItems = document.querySelectorAll('.taskItem__deleteBtn');
     deleteBtnItems.forEach(function(deleteBtnItem) {
         deleteBtnItem.addEventListener('click', function(event) {
-            let numdeleteBtn = parseInt(event.target.getAttribute('data-id'));
-            toDoList = toDoList.filter((item, index) => index !== numdeleteBtn);
+            let numDeleteBtn = parseInt(event.target.getAttribute('data-id'));
+            toDoList = toDoList.filter((item, index) => index !== numDeleteBtn);
             localStorage.setItem("todo", JSON.stringify(toDoList));
             updateHiddenBlock();
             displayMessages();
@@ -176,13 +167,15 @@ toDoItem.addEventListener('dblclick', function(event) {
                 updateHiddenBlock();
                 displayMessages(); 
                 countLefts(); 
+                filteredList();
             } else {
                 event.target.previousElementSibling.innerText = input.value;
                 input.classList.remove('showBlock');
                 toDoList[labelId].toDoTxt = input.value;  
                 localStorage.setItem("todo", JSON.stringify(toDoList));  
                 displayMessages(); 
-                countLefts();  
+                countLefts();     
+                filteredList();          
             }
         }
         
@@ -210,10 +203,10 @@ var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 function notAllCheckboxesChecked() {
     let allChecked = true;
     checkboxes.forEach((checkbox) => {
-      if (!checkbox.checked) {
-        allChecked = false;
-        return;
-      }
+        if (!checkbox.checked) {
+            allChecked = false;
+            return;
+        }
     });
     return !allChecked;
 }
@@ -259,7 +252,6 @@ function clearCompleted() {
     filteredList();
 }
 
-
 let countLeft;
 let spanLeft = document.querySelector('.tasksCount');
 
@@ -270,7 +262,6 @@ function countLefts(){
         if(item.checked === false){
             countLeft++;
         }
-        
     });
     spanLeft.innerHTML = countLeft;
     if (countLeft === 0){
@@ -278,16 +269,15 @@ function countLefts(){
         style.innerHTML = `
         .allCompl__label::before {
             color: #484848;
-          }
+        }
         `;
         document.head.appendChild(style);
-    }
-    else{
+    } else {
         let style = document.createElement('style');
         style.innerHTML = `
         .allCompl__label::before {
             color: #949494;
-          }
+        }
         `;
         document.head.appendChild(style);
     }
