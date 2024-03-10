@@ -53,6 +53,7 @@ function todoAddTask(event, point){
     }
     updateHiddenBlock();
     countLefts();
+    filteredList();   
 }
 
 // Отображение списка задач в обратном порядке
