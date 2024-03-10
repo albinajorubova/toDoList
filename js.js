@@ -26,13 +26,13 @@ updateHiddenBlock();
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        todoAddTask(event, document.querySelector('.todoInput__input'));
+        todoAddTask(event, document.querySelector('.todoInputBlock__input'));
     }
 });
 
 document.addEventListener('click', function(event) {
-    if (!event.target.closest('.todoInput')) {
-        todoAddTask(event, document.querySelector('.todoInput__input'));
+    if (!event.target.closest('.todoInputBlock')) {
+        todoAddTask(event, document.querySelector('.todoInputBlock__input'));
     }
 });
 
