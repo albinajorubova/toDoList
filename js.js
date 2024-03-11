@@ -66,7 +66,7 @@ function displayMessages(){
             <div class='taskContent'>
                 <input type='checkbox' name='checkInput' id='item__${i}' ${item.checked ? 'checked': ''} />
                 <label id="labelTxt" data-id='${i}' class="taskContent__label ${item.checked ? 'labelChecked' : ''}">${item.toDoTxt}</label>
-                <input type="text" class="editItemInput"  />
+                <input type="text" class="editItemInput" />
             </div>
             <button class='taskItem__deleteBtn' data-id='${i}'></button>
         </li>
