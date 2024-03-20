@@ -209,6 +209,7 @@ function detectUncheckedCheckboxes() {
 }
 
 function selectAllTasks() {
+    checkboxes;
     if (detectUncheckedCheckboxes()) {
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = true;
