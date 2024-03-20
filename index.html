@@ -14,8 +14,9 @@
 <body>
   <section class="mainSection">
     <h1>todos</h1>
+    <div class="todoListContainer">
     <div class="todoInputBlock">
-      <input type="text" class="todoInputBlock__input" onkeydown="todoAdd(event, this)" placeholder="What needs to be done?" autofocus autocomplete="off" />
+      <input type="text" class="todoInputBlock__input" onkeydown="addTask(event, this)" placeholder="What needs to be done?" autofocus autocomplete="off" />
       <div class="allComplBtn">
         <input type="checkbox" class="allCompl__checkbox" />
         <label class="allCompl__label" onclick="selectAllTasks()" />
@@ -33,6 +34,7 @@
         <button class="clearComplBtn" onclick="clearCompleted()">Clear completed</button>
       </div>
     </div>
+  </div>
     </section>
     <script src="./js.js"></script>
 </body>

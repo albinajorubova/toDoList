@@ -28,7 +28,11 @@ button {
   align-items: center;
   flex-direction: column;
 }
-
+.todoListContainer{
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
 .mainSection h1 {
   margin: 20px auto;
   font-size: 100px;
@@ -37,7 +41,6 @@ button {
 
 .todoInputBlock {
   position: relative;
-  max-width: 600px;
   width: 100%;
 }
 
@@ -95,7 +98,6 @@ button {
 
 .tasksContainer {
   display: none;
-  max-width: 600px;
   width: 100%;
 }
 
