@@ -83,7 +83,7 @@ function displayTasks() {
         clearComplBtn.classList.remove('showBlock');
     }
 
-    addDeleteButtonEventListeners();
+    addRemovalButton();
 }
 
 function filterTodoList() {
@@ -104,7 +104,7 @@ function filterTodoList() {
     updateHiddenBlock();
 }
 
-function addDeleteButtonEventListeners() {
+function addRemovalButton() {
     const deleteBtnItems = document.querySelectorAll('.taskItem__deleteBtn');
     deleteBtnItems.forEach(function (deleteBtnItem) {
         deleteBtnItem.addEventListener('click', function (event) {
@@ -123,7 +123,6 @@ toDoItem.addEventListener('change', function (event) {
     if (event.target.type === 'checkbox') {
         const idInput = event.target.getAttribute('id');
         const labelFor = document.querySelector(`[data-id="${idInput}"]`);
-
         if (labelFor) {
             if (event.target.checked) {
                 labelFor.classList.add('labelChecked');
@@ -237,7 +236,7 @@ function selectAllTasks() {
     filterTodoList();
 }
 
-function clearCompleted() {
+function clearCompletedTasks() {
     const filteredTasks = toDoList.filter(function (item) {
         return !item.checked;
     });
